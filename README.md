@@ -1,9 +1,5 @@
 # Bovine Monitoring System 🐄
 
-![GitHub](https://img.shields.io/github/license/GersonScript/Bovine_Monitoring?color=blue)
-![GitHub last commit](https://img.shields.io/github/last-commit/GersonScript/Bovine_Monitoring)
-![GitHub repo size](https://img.shields.io/github/repo-size/GersonScript/Bovine_Monitoring)
-
 O **Bovine Monitoring System** é uma aplicação web desenvolvida para o rastreamento e gerenciamento de gado. Com funcionalidades como cadastro de animais, registro de pesagens e vacinações, e um dashboard analítico, o sistema é ideal para produtores rurais que desejam otimizar a gestão do rebanho.
 
 ---

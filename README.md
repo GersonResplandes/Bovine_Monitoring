@@ -128,7 +128,7 @@ Contribuições são bem-vindas! Siga os passos abaixo:
 
 - **Nome:** Gérson
 - **E-mail:** sagerson@acad.ifma.edu.br
-- **GitHub:** [GersonScript]([https://github.com/seu-usuario](https://github.com/GersonScript))
+- **GitHub:** [GersonScript](https://github.com/GersonScript)
 
 ---
 

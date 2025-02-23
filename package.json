@@ -1,7 +1,7 @@
 {
-  "name": "jogo",
+  "name": "Bovine Monitoring System",
   "version": "1.0.0",
-  "description": "Um jogo integrado com backend usando Express e MySQL",
+  "description": "Sistema de rastreamento e monitoramento de gado desenvolvido com Node.js, Express, Sequelize e MySQL. O projeto permite o cadastro de animais, registro de pesagens e vacinações, além de fornecer um dashboard com métricas e gráficos para análise.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

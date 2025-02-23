@@ -124,7 +124,7 @@ Contribuições são bem-vindas! Siga os passos abaixo:
 
 - **Nome:** Gérson
 - **E-mail:** sagerson@acad.ifma.edu.br
-- **GitHub:** [GersonScript](https://github.com/GersonResplandes)
+- **GitHub:** [GersonResplandes](https://github.com/GersonResplandes)
 
 ---
 

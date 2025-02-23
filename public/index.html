@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <main id="main-content" class="container">
+      <section id="login-section" class="form-wrapper">
+        <form id="login-form" action="/login" method="POST" class="form">
+          <h1 class="form-title">Login</h1>
+          <div class="form-group">
+            <label for="username" class="form-label">Usuário:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-input"
+              placeholder="Digite seu usuário"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Senha:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-input"
+              placeholder="Digite sua senha"
+              required
+            />
+          </div>
+          <button type="submit" class="form-button">Entrar</button>
+        </form>
+      </section>
+    </main>
+    <script>
+      document.querySelector("#login-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              window.location.href = "./pages/main.html";
+            } else {
+              return response.json();
+            }
+          })
+          .then((data) => {
+            if (data && data.error) {
+              alert(data.error);
+            }
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Gerenciamento Bovino</title>
+
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="../js/main.js"></script>
+    <script defer src="../script.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      .container-dashboard {
+        background: #fff;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        width: 100%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        justify-items: center;
+      }
+      .chart-container {
+        width: 90%;
+        max-width: 400px;
+      }
+      canvas {
+        width: 100% !important;
+        height: auto !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header" id="sidebar">
+      <button class="toggle-btn" onclick="toggleSidebar()">❮</button>
+      <nav class="main-nav" aria-label="Menu principal">
+        <ul class="nav-list">
+          <li><a href="#" id="home" class="nav-link">Início</a></li>
+          <li>
+            <a href="#" id="register-animal-btn" class="nav-link"
+              >Cadastrar Novo Animal</a
+            >
+          </li>
+          <li>
+            <a href="#" id="record-vaccination-btn" class="nav-link"
+              >Registrar Vacinação</a
+            >
+          </li>
+          <li>
+            <a href="#" id="record-weight-btn" class="nav-link"
+              >Registrar Pesagem</a
+            >
+          </li>
+          <li>
+            <a href="#" id="view-animal-details-btn" class="nav-link"
+              >Ver Detalhes do Animal</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main-content">
+      <div class="container-dashboard">
+        <h2>Total de Animais: <span id="total-animais">0</span></h2>
+        <h2>Vacinas em Dia: <span id="vacinas-em-dia">0%</span></h2>
+
+        <div class="chart-container">
+          <canvas id="sexo-chart"></canvas>
+        </div>
+        <div class="chart-container">
+          <canvas id="peso-chart"></canvas>
+        </div>
+        <div class="chart-container">
+          <canvas id="pesagem-chart"></canvas>
+        </div>
+        <div class="chart-container">
+          <canvas id="vacina-chart"></canvas>
+        </div>
+      </div>
+      <!-- Seção de Detalhes do Animal -->
+      <section
+        id="animal-details-container"
+        class="container hidden"
+        aria-labelledby="details-title"
+      >
+        <form class="form">
+          <h2 id="details-title" class="section-title">Detalhes do Animal</h2>
+          <div class="search-section">
+            <label for="animal-id-search">Buscar por ID do Animal</label>
+            <input
+              type="text"
+              id="animal-id-search"
+              class="form-input"
+              placeholder="Digite o ID do animal"
+            />
+          </div>
+          <button id="search-animal-btn" class="btn-search">Buscar</button>
+
+          <div id="animal-info"></div>
+        </form>
+      </section>
+
+      <!-- Formulário de Cadastro de Animal -->
+      <section
+        id="animal-registration-container"
+        class="container hidden"
+        aria-labelledby="register-title"
+      >
+        <h2 id="register-title" class="section-title">Cadastrar Novo Animal</h2>
+        <form id="animal-registration-form" class="form">
+          <label for="animal-id">Código do Animal</label>
+          <input
+            type="text"
+            id="animal-id"
+            class="form-input"
+            placeholder="Ex: 003"
+            required
+          />
+
+          <label for="birth-date">Data de Nascimento</label>
+          <input type="date" id="birth-date" class="form-input" required />
+
+          <label for="gender">Sexo</label>
+          <select id="gender" class="form-select" required>
+            <option value="Macho">Macho</option>
+            <option value="Fêmea">Fêmea</option>
+          </select>
+
+          <label for="breed">Raça</label>
+          <input
+            type="text"
+            id="breed"
+            class="form-input"
+            placeholder="Digite a raça"
+            required
+          />
+
+          <label for="father-id">ID do Pai</label>
+          <input
+            type="text"
+            id="father-id"
+            class="form-input"
+            placeholder="Caso conhecido"
+          />
+
+          <label for="mother-id">ID da Mãe</label>
+          <input
+            type="text"
+            id="mother-id"
+            class="form-input"
+            placeholder="Caso conhecido"
+          />
+
+          <label for="weight">Peso</label>
+          <div class="input-group">
+            <input
+              type="text"
+              id="weight"
+              class="form-input"
+              placeholder="Digite o peso"
+              required
+            />
+            <select id="weight-unit" class="form-select">
+              <option value="kg">Kg</option>
+              <option value="arroba">Arroba</option>
+            </select>
+          </div>
+          <button type="submit" id="btn-submit-boi" class="btn-submit">
+            Cadastrar
+          </button>
+        </form>
+      </section>
+
+      <!-- Formulário de Registro de Pesagem -->
+      <section
+        id="weight-recording-container"
+        class="container hidden"
+        aria-labelledby="weight-title"
+      >
+        <h2 id="weight-title" class="section-title">Registrar Pesagem</h2>
+        <form id="weight-recording-form" class="form">
+          <label for="animal-id-weight">ID do Animal</label>
+          <input
+            type="text"
+            id="animal-id-weight"
+            class="form-input"
+            placeholder="Ex: 123"
+            required
+          />
+
+          <label for="weight-date">Data da Pesagem</label>
+          <input type="date" id="weight-date" class="form-input" required />
+
+          <label for="recorded-weight">Peso</label>
+          <div class="input-group">
+            <input
+              type="text"
+              id="recorded-weight"
+              class="form-input"
+              placeholder="Digite o peso"
+              required
+            />
+            <select id="weight-unit-recording" class="form-select">
+              <option value="kg">Kg</option>
+              <option value="arroba">Arroba</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit">Registrar Pesagem</button>
+        </form>
+      </section>
+
+      <!-- Formulário de Registro de Vacinação -->
+      <section
+        id="vaccination-recording-container"
+        class="container hidden"
+        aria-labelledby="vaccination-title"
+      >
+        <h2 id="vaccination-title" class="section-title">
+          Registrar Vacinação
+        </h2>
+        <form id="vaccination-recording-form" class="form">
+          <label for="animal-id-vaccination">ID do Animal</label>
+          <input
+            type="text"
+            id="animal-id-vaccination"
+            class="form-input"
+            required
+          />
+
+          <label for="vaccine-name">Nome da Vacina</label>
+          <input type="text" id="vaccine-name" class="form-input" required />
+
+          <label for="vaccination-date">Data da Vacinação</label>
+          <input
+            type="date"
+            id="vaccination-date"
+            class="form-input"
+            required
+          />
+
+          <label for="next-dose-date">Data da Próxima Dose</label>
+          <input type="date" id="next-dose-date" class="form-input" />
+
+          <button type="submit" class="btn-submit">Registrar Vacinação</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
